@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Jellyfin.Plugin.C3o</RootNamespace>
+    <AssemblyName>Jellyfin.Plugin.C3o</AssemblyName>
+    <Version>0.1.1.0</Version>
+    <AssemblyVersion>0.1.1.0</AssemblyVersion>
+    <FileVersion>0.1.1.0</FileVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <!-- Keep the build machine's folder names out of the released DLL. -->
+    <PathMap>$(MSBuildProjectDirectory)=/src/Jellyfin.Plugin.C3o</PathMap>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Configuration\config.html" />
+    <None Remove="Configuration\config.js" />
+    <EmbeddedResource Include="Configuration\config.html" />
+    <EmbeddedResource Include="Configuration\config.js" />
+  </ItemGroup>
+
+  <!-- Built against the server version it is installed on (see README "Jellyfin version"). -->
+  <ItemGroup>
+    <PackageReference Include="Jellyfin.Common" Version="12.4.0" ExcludeAssets="runtime" />
+    <PackageReference Include="Jellyfin.Controller" Version="12.4.0" ExcludeAssets="runtime" />
+  </ItemGroup>
+
+</Project>

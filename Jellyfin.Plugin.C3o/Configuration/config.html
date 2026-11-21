@@ -1,0 +1,95 @@
+<div id="C3oConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-controller="__plugin/c3ojs">
+    <div data-role="content">
+        <div class="content-primary">
+            <form id="C3oConfigForm">
+                <div class="sectionTitleContainer flex align-items-center">
+                    <h2 class="sectionTitle">C-3.o</h2>
+                </div>
+                <p>Checks the library and downloads an SRT for every video that has none in the languages below. It searches with the subtitle providers already installed on this server.</p>
+                <div id="c3oProviders" class="fieldDescription" style="margin-bottom: 1.5em;"></div>
+
+                <h3 class="sectionTitle">Languages</h3>
+                <div class="fieldDescription" style="margin-bottom: 1em;">Up to five, most important first. Leave a slot on "None" to skip it. With no language set, nothing is downloaded.</div>
+                <div class="selectContainer"><select is="emby-select" id="c3oLang1" class="c3oLang" label="Language 1 (highest priority)"></select></div>
+                <div class="selectContainer"><select is="emby-select" id="c3oLang2" class="c3oLang" label="Language 2"></select></div>
+                <div class="selectContainer"><select is="emby-select" id="c3oLang3" class="c3oLang" label="Language 3"></select></div>
+                <div class="selectContainer"><select is="emby-select" id="c3oLang4" class="c3oLang" label="Language 4"></select></div>
+                <div class="selectContainer"><select is="emby-select" id="c3oLang5" class="c3oLang" label="Language 5"></select></div>
+                <div class="selectContainer">
+                    <select is="emby-select" id="c3oOrder" label="When downloads are limited">
+                        <option value="language">Finish language 1 for the whole library, then language 2, and so on</option>
+                        <option value="title">Get every language for a title before moving to the next title</option>
+                    </select>
+                    <div class="fieldDescription">Newest additions to the library are always handled first.</div>
+                </div>
+
+                <h3 class="sectionTitle">What to check</h3>
+                <div class="checkboxContainer checkboxContainer-withDescription">
+                    <label><input is="emby-checkbox" type="checkbox" id="c3oMovies" /><span>Movies</span></label>
+                </div>
+                <div class="checkboxContainer checkboxContainer-withDescription">
+                    <label><input is="emby-checkbox" type="checkbox" id="c3oEpisodes" /><span>TV episodes</span></label>
+                </div>
+                <div id="c3oLibraries" style="margin: 0 0 1.5em 0;"></div>
+
+                <h3 class="sectionTitle">What counts as already having subtitles</h3>
+                <div class="checkboxContainer checkboxContainer-withDescription">
+                    <label><input is="emby-checkbox" type="checkbox" id="c3oEmbedded" /><span>A text subtitle track inside the video file counts</span></label>
+                    <div class="fieldDescription checkboxFieldDescription">On: a video whose file already contains, say, English text subtitles gets no English SRT. Off: only an SRT file next to the video counts, so one is downloaded even if the file has that language built in.</div>
+                </div>
+                <div class="checkboxContainer checkboxContainer-withDescription">
+                    <label><input is="emby-checkbox" type="checkbox" id="c3oUntagged" /><span>An SRT with no language in its name counts as language 1</span></label>
+                </div>
+
+                <h3 class="sectionTitle">Which subtitles to accept</h3>
+                <div class="checkboxContainer checkboxContainer-withDescription">
+                    <label><input is="emby-checkbox" type="checkbox" id="c3oHash" /><span>Only exact matches for the video file</span></label>
+                    <div class="fieldDescription checkboxFieldDescription">Guarantees the timing fits, but far fewer titles get a subtitle. Off: the most-downloaded subtitle for the title is used when there is no exact match.</div>
+                </div>
+                <div class="checkboxContainer checkboxContainer-withDescription">
+                    <label><input is="emby-checkbox" type="checkbox" id="c3oSdh" /><span>Allow hearing-impaired (SDH) subtitles when there is nothing else</span></label>
+                </div>
+                <div class="checkboxContainer checkboxContainer-withDescription">
+                    <label><input is="emby-checkbox" type="checkbox" id="c3oMt" /><span>Allow machine or AI translated subtitles when there is nothing else</span></label>
+                </div>
+
+                <h3 class="sectionTitle">Limits</h3>
+                <div class="inputContainer">
+                    <input is="emby-input" type="number" id="c3oMax" min="0" step="1" label="Most downloads per run (0 = no cap)" />
+                    <div class="fieldDescription">A run always stops by itself when the provider's daily download limit is used up, and the next run continues from there.</div>
+                </div>
+                <div class="inputContainer">
+                    <input is="emby-input" type="number" id="c3oSearches" min="0" step="1" label="Most searches per run (0 = no cap)" />
+                    <div class="fieldDescription">Spreads the first pass over a big library across several nights, so the subtitle service is not flooded with requests.</div>
+                </div>
+                <div class="inputContainer">
+                    <input is="emby-input" type="number" id="c3oRetry" min="1" step="1" label="Days before searching again for a subtitle that was not found" />
+                </div>
+                <div class="inputContainer">
+                    <input is="emby-input" type="number" id="c3oDelay" min="0" step="100" label="Pause between searches (milliseconds)" />
+                </div>
+                <div class="checkboxContainer checkboxContainer-withDescription">
+                    <label><input is="emby-checkbox" type="checkbox" id="c3oDryRun" /><span>Dry run</span></label>
+                    <div class="fieldDescription checkboxFieldDescription">Checks the first few titles and lists what would be downloaded (up to 25), without downloading or using up the daily limit.</div>
+                </div>
+
+                <div>
+                    <button is="emby-button" type="submit" class="raised button-submit block"><span>Save</span></button>
+                </div>
+            </form>
+
+            <div style="margin-top: 2.5em;">
+                <h3 class="sectionTitle">Status</h3>
+                <div id="c3oStatus" class="fieldDescription">Loading...</div>
+                <div style="margin: 1em 0;">
+                    <button is="emby-button" type="button" id="c3oRun" class="raised"><span>Run now</span></button>
+                    <button is="emby-button" type="button" id="c3oRefresh" class="raised"><span>Refresh status</span></button>
+                    <button is="emby-button" type="button" id="c3oReset" class="raised"><span>Search again for subtitles not found</span></button>
+                </div>
+                <div class="fieldDescription">Runs automatically every night at 3:00. Change that under Dashboard, Scheduled Tasks, "Download missing SRT subtitles".</div>
+                <div id="c3oTotals" style="margin-top: 1em;"></div>
+                <div id="c3oRecent" style="margin-top: 1em;"></div>
+            </div>
+        </div>
+    </div>
+</div>

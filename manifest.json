@@ -1,0 +1,21 @@
+[
+  {
+    "guid": "3853ff20-a714-4171-ade4-7d89ef9b5fb2",
+    "name": "C-3.o",
+    "description": "Automatically searches for missing SRT subtitles. Every night it checks all your movies and TV episodes and, for each one that has no SRT subtitle in your preferred languages (up to five, in your order of preference), finds and downloads one. It uses whatever subtitle providers are already set up in Jellyfin, so there is no extra account or service to configure.",
+    "overview": "Automatically finds and downloads missing SRT subtitles in your preferred languages",
+    "owner": "farthing",
+    "category": "Subtitles",
+    "imageUrl": "https://raw.githubusercontent.com/farthing/jellyfin-plugin-c3o/main/art/c3o.png",
+    "versions": [
+      {
+        "version": "0.1.1.0",
+        "changelog": "First public release.\n\n- Nightly task that finds movies and TV episodes with no SRT subtitle in your preferred languages (up to five, in order of preference) and downloads one through the subtitle providers already set up in Jellyfin.\n- Settings page with language priority, library selection, matching rules, per-run limits, a dry run mode and a status view of the last run and recent downloads.\n- Stops cleanly at the provider's daily download limit and continues on the next run.",
+        "targetAbi": "12.4.0.0",
+        "sourceUrl": "https://github.com/farthing/jellyfin-plugin-c3o/releases/download/v0.1.1.0/c-3.o_0.1.1.0.zip",
+        "checksum": "4a6c4b04dd0aa38cfb7bcad2bc1d335f",
+        "timestamp": "2026-11-21T19:03:28Z"
+      }
+    ]
+  }
+]

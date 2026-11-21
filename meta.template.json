@@ -1,0 +1,16 @@
+{
+  "category": "Subtitles",
+  "changelog": "",
+  "description": "Automatically searches for missing SRT subtitles. Every night it checks all your movies and TV episodes and, for each one that has no SRT subtitle in your preferred languages (up to five, in your order of preference), finds and downloads one. It uses whatever subtitle providers are already set up in Jellyfin, so there is no extra account or service to configure.",
+  "guid": "3853ff20-a714-4171-ade4-7d89ef9b5fb2",
+  "imagePath": "@DIR@/c3o.png",
+  "name": "C-3.o",
+  "overview": "Automatically finds and downloads missing SRT subtitles in your preferred languages",
+  "owner": "farthing",
+  "targetAbi": "12.4.0.0",
+  "timestamp": "@TIMESTAMP@",
+  "version": "@VERSION@",
+  "status": "Active",
+  "autoUpdate": false,
+  "assemblies": []
+}

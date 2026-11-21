@@ -1,0 +1,10 @@
+bin/
+obj/
+*.user
+.vs/
+
+# release packages built by package.py (uploaded to GitHub releases, not committed)
+dist/
+
+# private, machine-specific files: deploy settings, server notes, old history
+.local/
